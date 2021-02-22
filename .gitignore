@@ -1,4 +1,5 @@
 # package ignores.
+.idea
 /vendor
 /composer.lock
 
@@ -8,3 +9,5 @@
 # phpunit / tests ignores.
 /phpunit.xml
 /coverage
+
+.DS_Store

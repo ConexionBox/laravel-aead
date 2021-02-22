@@ -6,6 +6,7 @@ use LaravelAEAD\Ciphers;
 use LaravelAEAD\Contracts\Encrypter as EncrypterContract;
 use LaravelAEAD\Exceptions\DecryptException;
 use LaravelAEAD\Exceptions\EncryptException;
+use Illuminate\Support\Arr;
 use RuntimeException;
 
 /**
@@ -134,7 +135,7 @@ class Encrypter implements EncrypterContract
         $payload = json_decode($this->decodeBase64($payload), true);
 
         // the payload should at least contain the 3 main keys.
-        if (!array_has($payload, ['value', 'nonce', 'ad'])) {
+        if (!Arr::has($payload, ['value', 'nonce', 'ad'])) {
             throw new DecryptException('Invalid Payload.');
         }
 
@@ -258,7 +259,7 @@ class Encrypter implements EncrypterContract
     public static function getCipherClass(string $cipherName): string
     {
         // retrieves the list of available ciphers
-        $cipherClass = array_get(self::getCiphers(), $cipherName, null);
+        $cipherClass = Arr::get(self::getCiphers(), $cipherName, null);
 
         // check if the cipher exists.
         if (!$cipherClass || !class_exists($cipherClass)) {
