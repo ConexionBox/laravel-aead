@@ -26,12 +26,12 @@ class EncryptionServiceProvider extends LaravelEncryptionServiceProvider
     public function register()
     {
         // starts the singleton.
-        $this->app->singleton('encrypter', function () {
+        $this->app->singleton('aead', function () {
             // find the encryption key from config.
             $key = $this->getConfigValue('app.key');
 
             // find the cipher from config.
-            $cipher = $this->getConfigValue('app.cipher', 'AES-256-CBC');
+            $cipher = $this->getConfigValue('sodium.cipher', 'AES-256-GCM');
 
             // when the configured cipher is not supported,
             // default to Laravel encrypter.
